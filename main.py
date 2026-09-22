@@ -34,6 +34,8 @@ class Menu(QMainWindow):
         self.player2 = QLineEdit(alignment = Qt.AlignCenter,placeholder_text="Jugador 2")
         self.start_button = QPushButton("Iniciar")
 
+        self.start_button.clicked.connect(self.get_player_names)
+
         self.titulo_inputs.style_sheet= menu_style
 
         self.start_button.style_sheet = menu_style
@@ -65,6 +67,15 @@ class Menu(QMainWindow):
 
 
         self.frame_titulo.set_layout(self.title_layout)
+    
+    #------------------------------------
+    #Verifica si los jugadores tienen nombre
+
+    def get_player_names (self):
+        if (self.player1.text and self.player2.text != ""):
+            print(f"Jugador1: {self.player1.text}\nJugador 2: {self.player2.text}")
+        else:
+            print("No name input")
 
 
 #------------------------------------
