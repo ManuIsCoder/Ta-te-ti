@@ -69,3 +69,31 @@ game_style = '''
         margin: 20px 0px;
     }
 '''
+
+player1_style = '''
+    QLabel{
+        color: white;
+    }
+    QPushButton {
+        background: green;
+        font-size: 30px;
+    }
+    QPushButton:disabled {
+        color: white;
+        background: green;
+    }
+'''
+
+player2_style = '''
+    QLabel{
+        color: white;
+    }
+    QPushButton {
+        background: purple;
+        font-size: 30px;
+    }
+    QPushButton:disabled {
+        color: white;
+        background: purple;
+    }
+'''
