@@ -36,8 +36,16 @@ game_style = '''
     QPushButton {
         height: 100%;
         background: #0e5c6f;
-        border: 2px solid #175260;
         border-radius: 6px;
+    }
+
+    QPushButton:hover {
+        background: #12718a;
+    }
+
+    QPushButton:pressed {
+        background: #093f4c;
+        padding-top: 4px;
     }
 
     QFrame {

@@ -72,7 +72,7 @@ class Menu(QMainWindow):
     #Verifica si los jugadores tienen nombre
 
     def get_player_names (self):
-        if (self.player1.text and self.player2.text != ""):
+        if (self.player1.text.strip() and self.player2.text.strip()):
             print(f"Jugador1: {self.player1.text}\nJugador 2: {self.player2.text}")
         else:
             print("No name input")

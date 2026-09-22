@@ -4,7 +4,10 @@ from __feature__ import snake_case, true_property
 import sys
 from styles import game_style
 
+current_player = "X"
+
 class GameWindow(QMainWindow):
+
     def setup_ui(self):
         self.size =QSize(450,500)
 
@@ -22,32 +25,41 @@ class GameWindow(QMainWindow):
         self.setup_buttons_frame()
         self.style_sheet = game_style
     
+    #------------------------------------
+
+    def add_button_to_layout(self,row,column):
+        coordinates = f'{row},{column}'
+        button = QPushButton()
+        button.clicked.connect(lambda: self.record_move(coordinates, button))
+        self.game_button_layout.add_widget(button,row,column)
+
+    #------------------------------------
+
     def setup_buttons_frame(self):
 
-        self.ButtonA1 = QPushButton()
-        self.ButtonA2 = QPushButton()
-        self.ButtonA3 = QPushButton()
-
-        self.ButtonB1 = QPushButton()               
-        self.ButtonB2 = QPushButton()
-        self.ButtonB3 = QPushButton()
-
-        self.ButtonC1 = QPushButton()
-        self.ButtonC2 = QPushButton()
-        self.ButtonC3 = QPushButton()
-
         self.game_button_layout = QGridLayout()
-
-        buttons_list = [[self.ButtonA1, self.ButtonA2, self.ButtonA3],
-                        [self.ButtonB1, self.ButtonB2, self.ButtonB3],
-                        [self.ButtonC1, self.ButtonC2, self.ButtonC3]]
-        
         
         for i in range(3):
             for j in range(3):
-                self.game_button_layout.add_widget(buttons_list[i][j],i,j)
+                self.add_button_to_layout(i,j)
         
         self.frame_buttons.set_layout(self.game_button_layout)
+
+    #------------------------------------
+    
+    def record_move(self, coordinate, button):
+        global current_player
+        if(current_player == "X" and button.text==""):
+            button.text = current_player
+            button.style_sheet = "background: green"
+            current_player = "O"
+        elif(current_player == "O" and button.text==""):
+            button.text = current_player
+            button.style_sheet = "background: blue"
+            current_player = "X"
+        else:
+            print("No se puede jugar en esa posicion")
+        print("Click",coordinate)
 
 #------------------------------------
 
