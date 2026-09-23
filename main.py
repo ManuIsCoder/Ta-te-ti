@@ -2,7 +2,9 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from __feature__ import snake_case, true_property
 import sys
-from styles import menu_style, title_style
+from styles import menu_style
+
+players_names = ["Jose","Pablo"]
 
 class Menu(QMainWindow):
     def setup_ui(self):
@@ -74,6 +76,8 @@ class Menu(QMainWindow):
     def get_player_names (self):
         if (self.player1.text.strip() and self.player2.text.strip()):
             print(f"Jugador1: {self.player1.text}\nJugador 2: {self.player2.text}")
+            global players_names
+            players_names = [self.player1.text,self.player2.text]
         else:
             print("No name input")
 

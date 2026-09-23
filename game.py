@@ -6,7 +6,21 @@ from __feature__ import snake_case, true_property
 import sys
 from styles import game_style, player1_style, player2_style, title_style, game_header_style
 
-current_player = "X"
+#from main import players_names
+players_names = ["Jose","Pablo"]
+
+class Player:
+    def __init__(self, name, char,pstyle):
+        self.letter = char
+        self.name = name
+        self.moves = set()
+        self.style = pstyle
+
+player1 = Player(players_names[0],"X",player1_style)
+player2 = Player(players_names[1],"O",player2_style)
+
+current_player = player1.letter
+
 player1_moves = set()
 player2_moves = set()
 playable_buttons = set()
@@ -100,6 +114,7 @@ class GameWindow(QMainWindow):
         self.restart_button.icon_size = QSize(30, 30)
 
         self.restart_button.clicked.connect(self.restart_logic)
+        #self.switch_roles_button.clicked.connect(self.switch_roles)
 
         self.options_layout.add_widget(self.home_button)
         self.options_layout.add_widget(self.switch_roles_button)
@@ -111,17 +126,17 @@ class GameWindow(QMainWindow):
 
     def record_move(self, coordinate, button):
         global current_player
-        if(current_player == "X"):
+        if(current_player == player1.letter):
             button.text = current_player
-            button.style_sheet = player1_style
-            player1_moves.add(coordinate)
-            current_player = "O"
+            button.style_sheet = player1.style
+            player1.moves.add(coordinate)
+            current_player = player2.letter
 
         else:
             button.text = current_player
-            button.style_sheet = player2_style
-            player2_moves.add(coordinate)
-            current_player = "X"
+            button.style_sheet = player2.style
+            player2.moves.add(coordinate)
+            current_player = player1.letter
 
         button.enabled = False
         button.style_sheet = button.style_sheet
@@ -134,12 +149,12 @@ class GameWindow(QMainWindow):
         global winning_combinations
         
         for combo in winning_combinations:
-            if (len(combo & player1_moves) == 3):   #player 1 wins
+            if (len(combo & player1.moves) == 3):   #player 1 wins
                 return 1
-            if (len(combo & player2_moves) == 3):   #player 2 wins
+            if (len(combo & player2.moves) == 3):   #player 2 wins
                 return 2
 
-        if(len(player1_moves) + len(player2_moves) == 9): #draw case
+        if(len(player1.moves) + len(player2.moves) == 9): #draw case
             return 3
         return 0       #nothing case
 
@@ -150,11 +165,11 @@ class GameWindow(QMainWindow):
         #Still in game
         if gameStatus == 0:
             if current_player == "X":
-                self.header_label.text = "Turno de Jugador 1"
-                self.frame_titulo.style_sheet = player1_style
+                self.header_label.text = f"Turno de {player1.name}"
+                self.frame_titulo.style_sheet = player1.style
             else:
-                self.header_label.text = "Turno de Jugador 2"
-                self.frame_titulo.style_sheet = player2_style
+                self.header_label.text = f"Turno de {player2.name}"
+                self.frame_titulo.style_sheet = player2.style
         
         #End of game
         elif gameStatus == 3:
@@ -165,12 +180,12 @@ class GameWindow(QMainWindow):
         #Someone won
         else:
             if gameStatus == 1:
-                self.header_label.text = "Jugador 1 ganó el juego"
-                self.frame_titulo.style_sheet = player1_style
+                self.header_label.text = f"{player1.name} ganó el juego"
+                self.frame_titulo.style_sheet = player1.style
                 self.frame_buttons.enabled = False
             else:
-                self.header_label.text = "Jugador 2 ganó el juego"
-                self.frame_titulo.style_sheet = player2_style
+                self.header_label.text = f"{player2.name} ganó el juego"
+                self.frame_titulo.style_sheet = player2.style
                 self.frame_buttons.enabled = False
     
     #------------------------------------
@@ -183,20 +198,24 @@ class GameWindow(QMainWindow):
             button.style_sheet=game_style
             button.text = ""
 
-        global player1_moves
-        global player2_moves
+        global player1
+        global player2
 
-        player1_moves = set()
-        player2_moves = set()
+        player1.moves = set()
+        player2.moves = set()
 
         self.frame_titulo.style_sheet = game_header_style
         self.header_label.text = ":D"
 
-    def main_menu_logic(self):
-        pass
+    # def switch_roles(self):
+    #         temporal = player1.letter
 
-    def change_roles_logic(self):
-        pass
+    #         player1.letter = player2.letter
+    #         player2.letter = temporal
+
+    #         temporal = player1.style
+    #         player1.style = player2.style
+    #         player2.style = temporal
 
 
 #------------------------------------
