@@ -1,4 +1,13 @@
 menu_style = '''
+    QPushButton:hover {
+        background: #ef6500;
+    }
+
+    QPushButton:pressed {
+        background: #cf6500;
+        padding-top: 2px;
+    }
+
     QPushButton {
         background: #df6500;
         color: black;
@@ -106,6 +115,6 @@ player2_style = '''
 
 game_header_style = '''
     color: white;
-    font-size: 35px;
+    font-size: 25px;
     font-weight: bold;
 '''
