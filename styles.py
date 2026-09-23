@@ -30,7 +30,7 @@ menu_style = '''
     }
 '''
 
-title_style = "color: black;font-size: 50px;font-weight: bold;"
+title_style = "color: white;font-size: 50px;font-weight: bold;"
 
 game_style = '''
     QPushButton {
@@ -82,6 +82,9 @@ player1_style = '''
         color: white;
         background: green;
     }
+    QFrame{
+        background: green;
+    }
 '''
 
 player2_style = '''
@@ -96,4 +99,13 @@ player2_style = '''
         color: white;
         background: purple;
     }
+    QFrame{
+        background: purple;
+    }
+'''
+
+game_header_style = '''
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
 '''
